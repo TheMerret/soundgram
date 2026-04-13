@@ -10,8 +10,8 @@ export interface Track {
   title: string;
   artist: string;
   cover: string;
-  // URL для iframe Яндекс.Музыки вида https://music.yandex.ru/iframe/album/{albumId}/track/{trackId}
-  // Получить можно в десктопном Яндекс.Музыке: трек → Поделиться → HTML-код
+  // Получить: десктопная Яндекс.Музыка → трек → Поделиться → HTML-код
+  // Формат src: https://music.yandex.ru/iframe/album/{albumId}/track/{trackId}
   iframeSrc: string;
 }
 
@@ -37,19 +37,17 @@ export const currentUser = {
 };
 
 export const followingList: FollowUser[] = [
-  { id: 'u1', name: 'Аня Соколова',   username: '@anya_sokolova', avatar: 'https://i.pravatar.cc/150?img=47', isFollowing: true },
-  { id: 'u2', name: 'Миша Орлов',     username: '@m_orlov',       avatar: 'https://i.pravatar.cc/150?img=33', isFollowing: true },
-  { id: 'u3', name: 'Лера Новикова',  username: '@lera_nova',     avatar: 'https://i.pravatar.cc/150?img=56', isFollowing: true },
-  { id: 'u4', name: 'Денис Волков',   username: '@dvolkov',       avatar: 'https://i.pravatar.cc/150?img=21', isFollowing: true },
-  { id: 'u5', name: 'Катя Морозова',  username: '@k_morozova',    avatar: 'https://i.pravatar.cc/150?img=44', isFollowing: true },
-  { id: 'u6', name: 'Саша Белов',     username: '@sasha_belov',   avatar: 'https://i.pravatar.cc/150?img=15', isFollowing: false },
-  { id: 'u7', name: 'Оля Петрова',    username: '@o_petrova',     avatar: 'https://i.pravatar.cc/150?img=49', isFollowing: true },
+  { id: 'u1', name: 'Аня Соколова',  username: '@anya_sokolova', avatar: 'https://i.pravatar.cc/150?img=47', isFollowing: true },
+  { id: 'u2', name: 'Миша Орлов',    username: '@m_orlov',       avatar: 'https://i.pravatar.cc/150?img=33', isFollowing: true },
+  { id: 'u3', name: 'Лера Новикова', username: '@lera_nova',     avatar: 'https://i.pravatar.cc/150?img=56', isFollowing: true },
+  { id: 'u4', name: 'Денис Волков',  username: '@dvolkov',       avatar: 'https://i.pravatar.cc/150?img=21', isFollowing: true },
+  { id: 'u5', name: 'Катя Морозова', username: '@k_morozova',    avatar: 'https://i.pravatar.cc/150?img=44', isFollowing: true },
+  { id: 'u6', name: 'Саша Белов',    username: '@sasha_belov',   avatar: 'https://i.pravatar.cc/150?img=15', isFollowing: false },
+  { id: 'u7', name: 'Оля Петрова',   username: '@o_petrova',     avatar: 'https://i.pravatar.cc/150?img=49', isFollowing: true },
 ];
 
-// Рабочие iframe-URL Яндекс.Музыки (получены через «Поделиться → HTML-код»)
-const YM = {
-  MsFatBooty:   'https://music.yandex.ru/iframe/album/489097/track/4311924',
-} as const;
+const ym = (albumId: string, trackId: string) =>
+  `https://music.yandex.ru/iframe/album/${albumId}/track/${trackId}`;
 
 export const mockPosts: Post[] = [
   {
@@ -57,10 +55,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u1', name: 'Аня Соколова', username: '@anya_sokolova', avatar: 'https://i.pravatar.cc/150?img=47' },
     track: {
       id: 't1',
-      title: 'Ms. Fat Booty',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/mosdef/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'The Hills',
+      artist: 'The Weeknd',
+      cover: 'https://picsum.photos/seed/thehills/80/80',
+      iframeSrc: ym('29644890', '24948471'),
     },
     createdAt: '2 минуты назад',
   },
@@ -69,10 +67,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u2', name: 'Миша Орлов', username: '@m_orlov', avatar: 'https://i.pravatar.cc/150?img=33' },
     track: {
       id: 't2',
-      title: 'Umi Says',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/umisays/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Blinding Lights',
+      artist: 'The Weeknd',
+      cover: 'https://picsum.photos/seed/blindinglights/80/80',
+      iframeSrc: ym('12105346', '60292250'),
     },
     createdAt: '14 минут назад',
   },
@@ -81,10 +79,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u3', name: 'Лера Новикова', username: '@lera_nova', avatar: 'https://i.pravatar.cc/150?img=56' },
     track: {
       id: 't3',
-      title: 'Mathematics',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/math/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Lose Yourself',
+      artist: 'Eminem',
+      cover: 'https://picsum.photos/seed/loseyourself/80/80',
+      iframeSrc: ym('4846', '18860'),
     },
     createdAt: '37 минут назад',
   },
@@ -93,10 +91,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u4', name: 'Денис Волков', username: '@dvolkov', avatar: 'https://i.pravatar.cc/150?img=21' },
     track: {
       id: 't4',
-      title: 'Thieves In The Night',
-      artist: 'Black Star',
-      cover: 'https://picsum.photos/seed/blackstar/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Hotline Bling',
+      artist: 'Drake',
+      cover: 'https://picsum.photos/seed/hotlinebling/80/80',
+      iframeSrc: ym('3481735', '24716214'),
     },
     createdAt: '1 час назад',
   },
@@ -105,10 +103,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u5', name: 'Катя Морозова', username: '@k_morozova', avatar: 'https://i.pravatar.cc/150?img=44' },
     track: {
       id: 't5',
-      title: 'Definition',
-      artist: 'Black Star',
-      cover: 'https://picsum.photos/seed/definition/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Rolling In The Deep',
+      artist: 'Adele',
+      cover: 'https://picsum.photos/seed/rollinginthedeep/80/80',
+      iframeSrc: ym('718991', '2278985'),
     },
     createdAt: '2 часа назад',
   },
@@ -117,10 +115,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u6', name: 'Саша Белов', username: '@sasha_belov', avatar: 'https://i.pravatar.cc/150?img=15' },
     track: {
       id: 't6',
-      title: 'The Talib Kweli Show',
-      artist: 'Talib Kweli',
-      cover: 'https://picsum.photos/seed/talib/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'bad guy',
+      artist: 'Billie Eilish',
+      cover: 'https://picsum.photos/seed/badguy/80/80',
+      iframeSrc: ym('7190880', '51516485'),
     },
     createdAt: '3 часа назад',
   },
@@ -129,10 +127,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u7', name: 'Оля Петрова', username: '@o_petrova', avatar: 'https://i.pravatar.cc/150?img=49' },
     track: {
       id: 't7',
-      title: 'Get By',
-      artist: 'Talib Kweli',
-      cover: 'https://picsum.photos/seed/getby/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Shape of You',
+      artist: 'Ed Sheeran',
+      cover: 'https://picsum.photos/seed/shapeofyou/80/80',
+      iframeSrc: ym('4172931', '32947997'),
     },
     createdAt: '4 часа назад',
   },
@@ -141,10 +139,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u1', name: 'Аня Соколова', username: '@anya_sokolova', avatar: 'https://i.pravatar.cc/150?img=47' },
     track: {
       id: 't8',
-      title: 'Brown Skin Lady',
-      artist: 'Black Star',
-      cover: 'https://picsum.photos/seed/brownskin/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Radioactive',
+      artist: 'Imagine Dragons',
+      cover: 'https://picsum.photos/seed/radioactive/80/80',
+      iframeSrc: ym('1597165', '3703085'),
     },
     createdAt: '5 часов назад',
   },
@@ -153,10 +151,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u2', name: 'Миша Орлов', username: '@m_orlov', avatar: 'https://i.pravatar.cc/150?img=33' },
     track: {
       id: 't9',
-      title: 'Respiration',
-      artist: 'Black Star',
-      cover: 'https://picsum.photos/seed/respiration/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Believer',
+      artist: 'Imagine Dragons',
+      cover: 'https://picsum.photos/seed/believer/80/80',
+      iframeSrc: ym('4811514', '37865998'),
     },
     createdAt: '6 часов назад',
   },
@@ -165,10 +163,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u3', name: 'Лера Новикова', username: '@lera_nova', avatar: 'https://i.pravatar.cc/150?img=56' },
     track: {
       id: 't10',
-      title: 'K.O.S. (Determination)',
-      artist: 'Black Star',
-      cover: 'https://picsum.photos/seed/kos/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'rockstar',
+      artist: 'Post Malone ft. 21 Savage',
+      cover: 'https://picsum.photos/seed/rockstar/80/80',
+      iframeSrc: ym('5320162', '36999048'),
     },
     createdAt: '7 часов назад',
   },
@@ -177,10 +175,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u4', name: 'Денис Волков', username: '@dvolkov', avatar: 'https://i.pravatar.cc/150?img=21' },
     track: {
       id: 't11',
-      title: 'Astronomy (8th Light)',
-      artist: 'Black Star',
-      cover: 'https://picsum.photos/seed/astronomy/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Sunflower',
+      artist: 'Post Malone & Swae Lee',
+      cover: 'https://picsum.photos/seed/sunflower/80/80',
+      iframeSrc: ym('5903084', '44103080'),
     },
     createdAt: '8 часов назад',
   },
@@ -189,10 +187,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u5', name: 'Катя Морозова', username: '@k_morozova', avatar: 'https://i.pravatar.cc/150?img=44' },
     track: {
       id: 't12',
-      title: 'Hater Players',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/haterplayers/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Umbrella',
+      artist: 'Rihanna ft. Jay-Z',
+      cover: 'https://picsum.photos/seed/umbrella/80/80',
+      iframeSrc: ym('7112', '5570'),
     },
     createdAt: 'вчера',
   },
@@ -201,10 +199,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u6', name: 'Саша Белов', username: '@sasha_belov', avatar: 'https://i.pravatar.cc/150?img=15' },
     track: {
       id: 't13',
-      title: 'Brooklyn',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/brooklyn/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Cadillac',
+      artist: 'MORGENSHTERN & Элджей',
+      cover: 'https://picsum.photos/seed/cadillac/80/80',
+      iframeSrc: ym('11010830', '67155218'),
     },
     createdAt: 'вчера',
   },
@@ -213,10 +211,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u7', name: 'Оля Петрова', username: '@o_petrova', avatar: 'https://i.pravatar.cc/150?img=49' },
     track: {
       id: 't14',
-      title: 'Do It Now',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/doitnow/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: 'Вот так',
+      artist: 'MORGENSHTERN',
+      cover: 'https://picsum.photos/seed/vottak/80/80',
+      iframeSrc: ym('5702424', '42977738'),
     },
     createdAt: '2 дня назад',
   },
@@ -225,10 +223,10 @@ export const mockPosts: Post[] = [
     user: { id: 'u1', name: 'Аня Соколова', username: '@anya_sokolova', avatar: 'https://i.pravatar.cc/150?img=47' },
     track: {
       id: 't15',
-      title: 'Mr. Nigga',
-      artist: 'Mos Def',
-      cover: 'https://picsum.photos/seed/mrnigga/80/80',
-      iframeSrc: YM.MsFatBooty,
+      title: '35',
+      artist: 'Тимати',
+      cover: 'https://picsum.photos/seed/timati35/80/80',
+      iframeSrc: ym('5654574', '42721510'),
     },
     createdAt: '3 дня назад',
   },
